@@ -25,15 +25,13 @@ jobs:
           gradle-version: '8.2'
 
       - name: Accept Android SDK licenses
-        run: yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+        run: yes | $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager --licenses || true
 
       - name: Install Android SDK platform 34
-        run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0"
+        run: $ANDROID_SDK_ROOT/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0"
 
       - name: Build Debug APK
         run: gradle :app:assembleDebug
-        env:
-          ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
